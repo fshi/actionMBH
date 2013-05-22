@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "getCluster", "getCluster.vcproj", "{08CE8A32-4079-425F-8E91-ADFBA6E2B597}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "getTrainTestData", "..\getTrainTestData\getTrainTestData.vcproj", "{3C81EAE0-A39F-4253-965C-855B59712C3E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libsvm_ovr", "..\libsvm_ovr\libsvm_ovr.vcproj", "{94054AFF-FC88-46F4-B393-EF76E9694663}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{08CE8A32-4079-425F-8E91-ADFBA6E2B597}.Debug|Win32.ActiveCfg = Debug|Win32
+		{08CE8A32-4079-425F-8E91-ADFBA6E2B597}.Debug|Win32.Build.0 = Debug|Win32
+		{08CE8A32-4079-425F-8E91-ADFBA6E2B597}.Release|Win32.ActiveCfg = Release|Win32
+		{08CE8A32-4079-425F-8E91-ADFBA6E2B597}.Release|Win32.Build.0 = Release|Win32
+		{3C81EAE0-A39F-4253-965C-855B59712C3E}.Debug|Win32.ActiveCfg = Debug|Win32
+		{3C81EAE0-A39F-4253-965C-855B59712C3E}.Debug|Win32.Build.0 = Debug|Win32
+		{3C81EAE0-A39F-4253-965C-855B59712C3E}.Release|Win32.ActiveCfg = Release|Win32
+		{3C81EAE0-A39F-4253-965C-855B59712C3E}.Release|Win32.Build.0 = Release|Win32
+		{94054AFF-FC88-46F4-B393-EF76E9694663}.Debug|Win32.ActiveCfg = Debug|Win32
+		{94054AFF-FC88-46F4-B393-EF76E9694663}.Debug|Win32.Build.0 = Debug|Win32
+		{94054AFF-FC88-46F4-B393-EF76E9694663}.Release|Win32.ActiveCfg = Release|Win32
+		{94054AFF-FC88-46F4-B393-EF76E9694663}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
