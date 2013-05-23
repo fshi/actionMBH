@@ -139,7 +139,7 @@ int main() {
 
 	//directory for the processed video data. for simplicity, the videos are stored in a subdirectory.
 	//one class, one subdirectory, marked with 1, 2, 3...
-	const string dirName = "C:\\dateSets\\hmdb51\\"; 
+	const string dirName = "C:\\dataSets\\hmdb51\\"; 
 	string fullName;
 	string dNm, dName;
 
@@ -177,6 +177,13 @@ int main() {
 		arr[i] = new float[wordNum];
 		iarr[i] = new int[wordNum];
 		iarr0[i] = new int[wordNum];
+	}
+	//make dir to store computed features
+	for (int i = 0; i < _runNum; i++)
+	{
+		itoa(i+1, tstr, 10);
+		dName2[i] = (string)"run"+(string)tstr;
+		_mkdir(dName2[i].c_str());
 	}
 
 	for (int i = trainSt; i < trainEnd; i++)
