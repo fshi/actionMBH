@@ -121,9 +121,8 @@ int main()
 	//delete ofile;
 
 	string fileName = "binOut.dat";
-	string dirName = "c:\\Feng\\hmdb51\\";
-	//string dirTest = "\\testing\\";
-	//string dirTrain = "\\training\\";
+	string dirName = "c:\\dataSets\\hmdb51\\";
+
 	string fullName;
 	string rFileNm = "randData100kc.dat";
 	string dNm;

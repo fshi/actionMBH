@@ -4,7 +4,7 @@
 
 //#define _USE_OCL_MATCH_
 #ifdef  _USE_OCL_MATCH_
-#include "bagWordsDescriptor_ocl.h"
+#include "bagWordsDescriptor_ocl.h"  //using gpu with opencl for brute force BoF matching
 #else
 #include "bagWordsDescriptor_new.h"
 #endif
