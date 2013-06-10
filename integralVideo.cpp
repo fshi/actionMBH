@@ -95,8 +95,8 @@ bool IntegralVideo::computeIntegVideo(const string& fName_, Point3f rt2ps, float
 	}
 	else
 	{
-		partSz.height = cvRound((reSzRatio*im.rows)/2);
-		partSz.width = cvRound((reSzRatio*im.cols)/2);
+		partSz.height = cvRound(reSzRatio*im.rows);
+		partSz.width = cvRound(reSzRatio*im.cols);
 		resize(imPs1, imPs1, partSz, 0, 0, CV_INTER_AREA);
 	}
 
