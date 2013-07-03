@@ -36,8 +36,10 @@ int main()
 	MBHparam * para = new MBHparam();
 	if (!para->readParam("MBH_parameters_input.txt", 1))
 	{
-		std::cout<<"use default HOG3D parameters instead.\n";
-		discoverUO::wait();
+		std::cout<<"Can't open the parameter file! Please include \"MBH_parameters_input.txt\" in the working directy.\n";
+		std::cout<<"The program will exit in 10 seconds! \n";
+		discoverUO::wait(10);
+		exit(-5);
 	}
 
 	stDetector dscpt(para); 
