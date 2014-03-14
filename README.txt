@@ -3,6 +3,9 @@ Introduction
 
 This implementation is an improvement over our CVPR'13 paper with multiple channels. Please check our notepaper on ucf101 workshop “LPM for fast action recognition with large number of classes”.
 
+If you use our code, please cite our CVPR'13 paper.
+If you use the svm in our code, you should cite libsvm paper here: http://www.csie.ntu.edu.tw/~cjlin/libsvm/. You should also read its COPYRIGHT: http://www.csie.ntu.edu.tw/~cjlin/libsvm/COPYRIGHT.
+
 
 Usage
 -----

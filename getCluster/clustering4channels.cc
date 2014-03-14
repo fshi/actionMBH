@@ -25,7 +25,6 @@ const int _maxChnl = 4;
 int main() 
 {
 	bool kmeanCluster = 0;
-	int chnl = 1;
 	std::cout<<"Do you want use Kmeans to cluster(\'1\' for Kmeans, \'0\'for random selection)? \nInput: ";
 	std::cin>>kmeanCluster;
 	std::cout<<"\n";
@@ -135,7 +134,7 @@ std::cout<<"\nNow reading raw data from the flie...! Please waiting...\n";
 	{
 		//Mat labels[4], centers[4];
 		std::cout<<"\nNow clustering with kmeans...! Please waiting...\n";
-		for(int i0 = 0; i0 < chnl; i0++)
+		for(int i0 = 0; i0 < _maxChnl; i0++)
 		{
 			id = i0*6;
 			for (int i = start[i0]; i < end[i0]; i++)

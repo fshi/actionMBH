@@ -1,3 +1,7 @@
+//This code prepares the files for svm classificaiton. 
+//It reads individual BoF file and group it into training/testing split groups of different classes.
+//It needs split1.txt, split2.txt and split3.txt files.
+
 #include "cxcore.h"
 #include "cv.h"
 #include "highgui.h"
