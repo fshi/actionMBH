@@ -17,6 +17,15 @@ Version No   : 1.00
 *********************************************************************************/
 
 #include "matOperations.h"
+#include <omp.h>
+#include <stdio.h>
+#include <time.h>
+#include "waitKeySeconds.h"
+#include <iostream>
+#include <fstream>
+#include "biostream.h" 
+#include "biistream.h" 
+#include "formatBinaryStream.h"
 
 
 //this function suffles Mat rows

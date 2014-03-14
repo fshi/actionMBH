@@ -25,7 +25,7 @@ Version No   : 1.00
 #include "cxcore.h"
 #include "integralVideo.h"
 
-#include "waitKeySeconds.h"
+//#include "waitKeySeconds.h"
 //using namespace cv;
 class descFeature
 {

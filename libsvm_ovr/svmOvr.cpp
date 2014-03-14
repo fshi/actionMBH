@@ -1,8 +1,3 @@
-//This function implement libsvm one-verse-all multi class svm based on libsvm version 3.01
-//The chi-square and histogram intersection keneral are added.
-//Our cvpr 2013 paper "Sampling Strategies for Real-time Action Recognition" uses 
-//one-verse-one svm, but the one-verse-all can improve the classification result up to 5% for hmdb51
-
 #include "cxcore.h"
 #include "cv.h"
 #include <stdio.h>
@@ -12,7 +7,7 @@
 #include <errno.h>
 #include <iostream>
 #include <fstream>
-#include "i_f_toa.h"
+
 #include <ctype.h>
 
 #include "biostream.h" 
@@ -131,8 +126,8 @@ int main(int argc, char **argv)
 		std::cout<<std::endl;
 	}
 	string *fileName = new string[nCls];
-	char tmpC[5], tstr[5];
-	i_ftoa(tstr, numWords);
+	char tmpC[10], tstr[10];
+	itoa(numWords, tstr, 10);
 
 	if(binaryFile)
 	{
@@ -220,7 +215,7 @@ int main(int argc, char **argv)
 	//done the training!
 
 	fileName = new string[nCls];
-	i_ftoa(tstr, numWords);
+	itoa(numWords, tstr, 10);
 	for (int j = 0; j < nCls; j++)
 	{
 		fileName[j] = (string)"bagWord" + (string)itoa(j+1,tmpC,10) + (string)"_" + (string)tstr+ (string)".dat";

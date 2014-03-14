@@ -11,9 +11,11 @@ void opcvL2Norm(float *arr, int sz, bool useThres = 0)
 		cout<<"not good  feature descriptor";
 		cin.get();cin.get();
 	}*/
+	Mat m2(1, sz, CV_32FC1);
+	cv::max(m1, 0., m2); //take value large than zero
 	if(useThres)
-		m1 += _threshold_;
-	normalize(m1, m1);
+		m2 += _threshold_;
+	normalize(m2, m1);
 }
 void descFeature::l2Norm(float *arr, int sz, float cutVal, bool L2Hys) const
 {
@@ -203,9 +205,10 @@ void descFeature::computeFeature(const Point3i& tlp0, const Point3i& whl0, float
 			}
 
 	ft = outArr;
-	opcvL2Norm(ft, _feaSz/2);  //normalize u components
-	ft = outArr+_feaSz/2;
-	opcvL2Norm(ft, _feaSz/2);  //normalize v components
+	for( int i = 0; i < _feaSz; i += _rtSz)
+		opcvL2Norm(ft+i, _rtSz);
+	opcvL2Norm(ft+_rtSz, _feaSz/2-_rtSz);  //renormalize parts' channel for MBHx
+	opcvL2Norm(ft+_rtSz+_feaSz/2, _feaSz/2-_rtSz); //renormalize parts' channel for MBHy
 }
 
 void descFeature::computeFt(const Point3i& tlp, const Point3i& whl, float *ft, int sz, bool root) const 
@@ -215,7 +218,7 @@ void descFeature::computeFt(const Point3i& tlp, const Point3i& whl, float *ft, i
 
 	if (_rdTp)
 	{
-		cout<<"_rdTp:"<<endl;
+		std::cout<<"_rdTp:"<<std::endl;
 
 		tlp0 = tlp;
 		blkSz.x = cvFloor(((float)whl.x) / _pSz.x);

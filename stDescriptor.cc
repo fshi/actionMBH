@@ -1,5 +1,7 @@
 #include "stDescriptor.h"
-
+#include "biostream.h" 
+#include "biistream.h" 
+#include "formatBinaryStream.h"
 
 MBHparam::MBHparam(
 			const Point3i&  numBloc_,

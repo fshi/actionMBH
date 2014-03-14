@@ -183,10 +183,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\i_f_toa.cc"
-				>
-			</File>
-			<File
 				RelativePath="..\integralVideo.cpp"
 				>
 			</File>
@@ -222,10 +218,6 @@
 			</File>
 			<File
 				RelativePath="..\formatBinaryStream.h"
-				>
-			</File>
-			<File
-				RelativePath="..\i_f_toa.h"
 				>
 			</File>
 			<File

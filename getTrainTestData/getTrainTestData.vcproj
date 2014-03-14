@@ -183,10 +183,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\i_f_toa.cc"
-				>
-			</File>
-			<File
 				RelativePath="..\integralVideo.cpp"
 				>
 			</File>
@@ -205,7 +201,11 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\bagWordsDescriptor_new.h"
+				RelativePath="..\bagWordsDescriptor_Nc.h"
+				>
+			</File>
+			<File
+				RelativePath="..\bagWordsDescriptorNc_ocl.h"
 				>
 			</File>
 			<File
@@ -226,10 +226,6 @@
 			</File>
 			<File
 				RelativePath="..\formatBinaryStream.h"
-				>
-			</File>
-			<File
-				RelativePath="..\i_f_toa.h"
 				>
 			</File>
 			<File

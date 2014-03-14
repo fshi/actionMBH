@@ -12,8 +12,8 @@ Version No   : 1.00
 
 #include "integralVideo.h"
 #include <iostream>
-#include "waitKeySeconds.h"
-#include "formatBinaryStream.h"
+//#include "waitKeySeconds.h"
+//#include "formatBinaryStream.h"
 #define normThreshold  0.001
 
 //using namespace cv;
@@ -146,8 +146,8 @@ bool IntegralVideo::computeIntegVideo(const string& fName_, Point3f rt2ps, float
 		calcOpticalFlowFarneback( imPs1, imPs2, oflow, sqrt(2.f)/2.0, 5, 10, 2, 7, 1.5, cv::OPTFLOW_FARNEBACK_GAUSSIAN );
 		//oflow *= 100;  //not work, only multiply to first channel
 		split(oflow, oFlows);
-		oFlows[0] *= 100;  //scale the computed optical flow around the normal image values
-		oFlows[1] *= 100;
+		//oFlows[0] *= 100;  //scale the computed optical flow around the normal image values
+		//oFlows[1] *= 100;
 		Mat tmpPs, tmp0;
 		for(int i0 = 0; i0 < 2; i0++)
 		{

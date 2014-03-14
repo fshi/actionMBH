@@ -22,15 +22,8 @@ Version No   : 1.00
 
 #include "cxcore.h"
 #include "cv.h"
-
-#include "integralVideo.h"
 #include "sampled3Droi.h"
-
-//#include "oriQuantizer.h"  //for 3DHOG descriptor
 #include "descFeature.h"
-#include "waitKeySeconds.h"
-#include "matOperations.h"
-
 using namespace cv;
 
 struct MBHparam{

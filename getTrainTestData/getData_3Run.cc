@@ -4,9 +4,9 @@
 
 //#define _USE_OCL_MATCH_
 #ifdef  _USE_OCL_MATCH_
-#include "bagWordsDescriptor_ocl.h"  //using gpu with opencl for brute force BoF matching
+#include "bagWordsDescriptorNc_ocl.h"  //if use gpu matching, only brute-force matching is supported
 #else
-#include "bagWordsDescriptor_new.h"
+#include "bagWordsDescriptor_Nc.h"
 #endif
 
 #include <omp.h>
@@ -21,58 +21,59 @@
 #include <string>
 #include <cstdlib>
 //#include <atlbase.h>  //for A2W(lpr);
-#include <string>
-#include <time.h>
 #include "waitKeySeconds.h"
-//#include "opencv.hpp"
-#include "i_f_toa.h"
-#include <direct.h>  // for _mkdir( "\\testtmp" ); 
-//#include <opencv2/gpu/gpu.hpp>
 
-//#define _GET_PROCESS_TIME_
+#include <direct.h>  // for _mkdir( "\\testtmp" ); 
 
 using namespace cv;
 
 const int _runNum = 3; //for random feature seletion, run 3 times
 const int classNum = 51; //number of total classes
 const int _maxFrames = 160; //maxium frames per video. if the video has more frames, it needs to split the video to do multiple processing to avoid memory overflow and vector overflow(patcher sampling from video)
+const int _channels = 4; //number of channels. For mbh, it has 4 channels, root chn, part chn, mbhx chn and mbhy chn
+//const int const _pcaDim[4] = {32, 64, 32, 64};
+const int const _pcaDim = NULL;
+const int _matchTp = 2;  //Flann = 2, Brute-force = 0. if _pcaDim != Null, then use pca to reduce dim
 
 int main() {
 
-#ifdef  _USE_OCL_MATCH_
+#ifdef  _USE_OCL_MATCH_  //this is only works for opencv version v2.46 or lower. otherwise, remove this ocl initializaion
 	//initianize gpu
 	vector<cv::ocl::Info> info;
 	cout<<cv::ocl::getDevice(info)<<endl;
 	//cv::ocl::setDevice(info[1]); //intel_gpu
 	cv::ocl::setDevice(info[0]); //amd_gpu
 #endif
+
 	printf ("OpenCV version %s (%d.%d.%d)\n",
 	    CV_VERSION,
 	    CV_MAJOR_VERSION, CV_MINOR_VERSION, CV_SUBMINOR_VERSION);
 
-	//USES_CONVERSION;  //for A2W(lpr) and W2A(...); 
 
 	RNG seed[3];
 	seed[0] = RNG(unsigned(time(NULL)));
 	seed[1] = RNG(seed[0].next());
 	seed[2] = RNG(seed[0].next());
 	
-	int numWords;
-
-	std::cout<<"How many words does \'bag of words\' has (1-9999)? \nInput: ";
-	std::cin>>numWords;
-
-	while (numWords<=0 || numWords>=10000)
+	int numWords[_channels];
+	for(int i = 0; i < _channels; i++)
 	{
-		std::cout<<"\nWrong number of words input! please re-input number words does again (1-9999): ";
-		std::cin>>numWords;
+		std::cout<<"For channel: "<<i<<"; how many words does \'bag of words\' has (1-29999)? \nInput: ";
+		std::cin>>numWords[i];
+		std::cout<<"\n";
+
+		if (numWords[i]<=0 || numWords[i]>=30000)
+		{
+			std::cout<<"Wrong number of words input! please re-input number words does again (1-29999): ";
+			std::cin>>numWords[i];
+			std::cout<<"\n";
+		}
 	}
-	std::cout<<"\n";
 
 	int samNum = 0;
 	std::cout<<"How many samples do you want to use for random sampling?  \nInput: ";
 	std::cin>>samNum;
-	while (samNum<100 || samNum>30000)
+	if (samNum<100 || samNum>30000)
 	{
 		std::cout<<"\nWrong number of samples input! please re-input number of samples again (100-30000): ";
 		std::cin>>samNum;
@@ -95,7 +96,7 @@ int main() {
 	delete para;
 
 	int clsNum = classNum;
-	while (clsNum <= 0)
+	if (clsNum <= 0)
 	{
 		std::cout<<"\nPleas input total number of classes :  ";
 		cin>>clsNum;
@@ -135,9 +136,10 @@ int main() {
 		fRst<<"\tThe vector dimension of descript feature is: "<<rootSz+partsSz<<"\n";
 	}
 
-	char tstr[5], tstr1[5], tmpC[5];
-	i_ftoa(tstr, numWords);
-	string fName = (string)"cluster" + (string)_itoa(numWords,tmpC,10)  + (string)"ppc" + (string)".dat";  //the file name of "visual words"
+	char tstr[10], tstr1[10], tmpC[10], tmpCs[10];
+	string fName[_channels]; 
+	for (int i = 0; i < _channels; i++)
+		fName[i] = (string)"cluster" + (string)itoa(numWords[i],tmpC,10)  + (string)"ppc" + (string)itoa(i,tmpCs,10) + (string)".dat";
 
 	//directory for the processed video data. for simplicity, the videos are stored in a subdirectory.
 	//one class, one subdirectory, marked with 1, 2, 3...
@@ -145,15 +147,24 @@ int main() {
 	string fullName;
 	string dNm, dName;
 
-	bagWordsFeature bwFt(fName);  //reading the "visual words" into  BoW class
+	//reading the "visual words" into  BoW class
+	#ifdef  _USE_OCL_MATCH_
+		bagWordsFeature bwFt(fName,_channels);
+	#else
+		bagWordsFeature bwFt(fName,_channels,_pcaDim,_matchTp);
+	#endif
+	
 	cout<<"Done initializing Bag of Words!"<<endl;
-	int wordNum = bwFt.getWordNum();
 
-	if(numWords != wordNum)
+	int wordNum = bwFt.getWordNum(), wordNum0 = 0;
+	for (int i = 0; i < _channels; i++)
+		wordNum0 += numWords[i];
+
+	if(wordNum0 != wordNum )
 	{
-		cout<<numWords<<" "<<wordNum<<endl;
-		cout<<"Bag of Word file: "<<fName<<" doesn't match the number of input words! Please input Enter key to exit!"<<endl;
-		discoverUO::wait(50);
+		cout<<wordNum<<" "<<wordNum0<<endl;
+		cout<<"Bag of Word file: "<<fName[0]<<" doesn't match the number of input words! Please enter any key to exit!"<<endl;
+		discoverUO::wait();
 		exit(-1);
 	}
 

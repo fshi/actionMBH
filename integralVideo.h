@@ -101,30 +101,30 @@ public:
 	IntegralVideo(const string& fName,  int bins = 8, bool fullOri = true, 
 				  Point3f rt2ps = Point3f(0.5, 0.5, 0.5), float reSzRatio = 1., int stFrame = 0, int endFrame = 0);	
 
-	vector<float> getDesc(const vector<Mat>& iv, const Point3i& tlp, const Point3i& whl, bool normByArea=1) const;
-	vector<float> getDesc_uv(const vector<Mat>* const iv, const Point3i& tlp, const Point3i& whl, bool normByArea=1) const;
+	vector<float> getDesc(const vector<Mat>& iv, const Point3i& tlp, const Point3i& whl, bool normByArea=0) const;
+	vector<float> getDesc_uv(const vector<Mat>* const iv, const Point3i& tlp, const Point3i& whl, bool normByArea=0) const;
 
-	inline vector<float> getRtDesc_uv(const Point3i& tlp, const Point3i& whl, bool normByArea = 1) const
+	inline vector<float> getRtDesc_uv(const Point3i& tlp, const Point3i& whl, bool normByArea = 0) const
 	{
 		return getDesc_uv(_ivRt, tlp, whl, normByArea);
 	}
-	inline vector<float> getPsDesc_uv(const Point3i& tlp, const Point3i& whl, bool normByArea = 1) const
+	inline vector<float> getPsDesc_uv(const Point3i& tlp, const Point3i& whl, bool normByArea = 0) const
 	{
 		return getDesc_uv(_ivPs, tlp, whl, normByArea);
 	}
-	inline vector<float> getRtDesc_u(const Point3i& tlp, const Point3i& whl, bool normByArea = 1) const
+	inline vector<float> getRtDesc_u(const Point3i& tlp, const Point3i& whl, bool normByArea = 0) const
 	{
 		return getDesc(_ivRt[0], tlp, whl, normByArea);
 	}
-	inline vector<float> getRtDesc_v(const Point3i& tlp, const Point3i& whl, bool normByArea = 1) const
+	inline vector<float> getRtDesc_v(const Point3i& tlp, const Point3i& whl, bool normByArea = 0) const
 	{
 		return getDesc(_ivRt[1], tlp, whl, normByArea);
 	}
-	inline vector<float> getPsDesc_u(const Point3i& tlp, const Point3i& whl, bool normByArea = 1) const
+	inline vector<float> getPsDesc_u(const Point3i& tlp, const Point3i& whl, bool normByArea = 0) const
 	{
 		return getDesc(_ivPs[0], tlp, whl, normByArea);
 	}
-	inline vector<float> getPsDesc_v(const Point3i& tlp, const Point3i& whl, bool normByArea = 1) const
+	inline vector<float> getPsDesc_v(const Point3i& tlp, const Point3i& whl, bool normByArea = 0) const
 	{
 		return getDesc(_ivPs[1], tlp, whl, normByArea);
 	}

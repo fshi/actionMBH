@@ -24,15 +24,7 @@ Version No   : 1.00
 #define _MAT_OPERATIONS_H_
 
 #include "cxcore.h"
-#include <omp.h>
-#include <stdio.h>
-#include <time.h>
-#include "waitKeySeconds.h"
-#include <iostream>
-#include <fstream>
-#include "biostream.h" 
-#include "biistream.h" 
-#include "formatBinaryStream.h"
+
 
 using namespace cv;
 
