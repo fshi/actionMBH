@@ -77,7 +77,7 @@ public:
 			const Point3f&  olRto_ = Point3f( 0.5, 0.5, 0.5),
 			const Point3i&  numParts_ = Point3i( 2, 2, 2),
 			bool roundTp_	= false,
-			bool normBlk_	= true,
+			bool normBlk_	= false,
 			float cutZ_ = 0.25,
 			float reSzV_ = 1.0,
 			uchar bins_ = 8,

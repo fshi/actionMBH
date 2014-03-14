@@ -214,7 +214,7 @@ void descFeature::computeFeature(const Point3i& tlp0, const Point3i& whl0, float
 void descFeature::computeFt(const Point3i& tlp, const Point3i& whl, float *ft, int sz, bool root) const 
 {
 	Point3i tlp0, whl0, blkSz, cellSz, cSz, tlpCell, tlpBlk;
-	float* desc;
+	vector<float> desc(_dim);
 
 	if (_rdTp)
 	{
@@ -287,22 +287,22 @@ void descFeature::computeFt(const Point3i& tlp, const Point3i& whl, float *ft, i
 							{
 								if (root)
 								{
-									desc = &((_iv->getRtDesc_u(tlpBlk, blkSz, _normBlk))[0]);
+									_iv->getRtDesc_u(tlpBlk, blkSz, desc, _normBlk);
 									for (int i = 0; i < _dim; i++)
 										(ft + step)[i] += desc[i];
 
-									desc = &((_iv->getRtDesc_v(tlpBlk, blkSz, _normBlk)))[0];
+									_iv->getRtDesc_v(tlpBlk, blkSz, desc, _normBlk);
 									for (int i = 0; i < _dim; i++)
 										(ft + step+ _feaSz/2)[i] += desc[i];
 									
 								}
 								else
 								{
-									desc = &((_iv->getPsDesc_u(tlpBlk, blkSz, _normBlk))[0]);
+									_iv->getPsDesc_u(tlpBlk, blkSz, desc, _normBlk);
 									for (int i = 0; i < _dim; i++)
 										(ft + step)[i] += desc[i];
 								
-									desc = &((_iv->getPsDesc_v(tlpBlk, blkSz, _normBlk))[0]);
+									_iv->getPsDesc_v(tlpBlk, blkSz, desc, _normBlk);
 									for (int i = 0; i < _dim; i++)
 										(ft + step+ _feaSz/2)[i] += desc[i];
 					
@@ -404,22 +404,22 @@ void descFeature::computeFt(const Point3i& tlp, const Point3i& whl, float *ft, i
 							{
 								if (root)
 								{
-									desc = &((_iv->getRtDesc_u(Point3i(bx, by, bz), blkSz, _normBlk))[0]);
+									_iv->getRtDesc_u(Point3i(bx, by, bz), blkSz, desc, _normBlk);
 									for (int i = 0; i < _dim; i++)
 										(ft + step)[i] += desc[i];
 
-									desc = &((_iv->getRtDesc_v(Point3i(bx, by, bz), blkSz, _normBlk))[0]);
+									_iv->getRtDesc_v(Point3i(bx, by, bz), blkSz, desc, _normBlk);
 									for (int i = 0; i < _dim; i++)
 										(ft + step+ _feaSz/2)[i] += desc[i];
 					
 								}
 								else
 								{
-									desc = &((_iv->getPsDesc_u(Point3i(bx, by, bz), blkSz, _normBlk))[0]);
+									_iv->getPsDesc_u(Point3i(bx, by, bz), blkSz, desc, _normBlk);
 									for (int i = 0; i < _dim; i++)
 										(ft + step)[i] += desc[i];
 
-									desc = &((_iv->getPsDesc_v(Point3i(bx, by, bz), blkSz, _normBlk))[0]);
+									_iv->getPsDesc_v(Point3i(bx, by, bz), blkSz, desc, _normBlk);
 									for (int i = 0; i < _dim; i++)
 										(ft + step+ _feaSz/2)[i] += desc[i];
 						

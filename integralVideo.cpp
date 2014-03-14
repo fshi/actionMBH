@@ -249,11 +249,9 @@ void IntegralVideo::integralHist(const Mat& src, Mat& hist) const
 	//std::cout<<"done iH. cols ="<<cols<<" rows ="<<rows<<"\n";
 }
 
-
-vector<float> IntegralVideo::getDesc(const vector<Mat>& iv, const Point3i& tlp, const Point3i& whl, bool normByArea) const
+void IntegralVideo::getDesc(const vector<Mat>& iv, const Point3i& tlp, const Point3i& whl, vector<float>& dst, bool normByArea) const
 {
-	vector<float> desc(_nbins);
-	for(int i = 0; i < _nbins; i++) desc[i] = 0.f;
+	for(int i = 0; i < _nbins; i++) dst[i] = 0.f;
 	int x = tlp.x*_nbins, y = tlp.y, t = tlp.z;
 	int w = whl.x*_nbins, h = whl.y, l = whl.z;
 	float area = (whl.x*h*l)/100.f; //divided by 100 to compensate for float accuracy (in case of the value is too small)
@@ -266,44 +264,10 @@ vector<float> IntegralVideo::getDesc(const vector<Mat>& iv, const Point3i& tlp, 
 			 iv[t].at<float>(y, x+w+i) + iv[t].at<float>(y, x+i);
 
 		if(normByArea)
-			desc[i] = (t1-t0)/area;
+			dst[i] = (t1-t0)/area;
 		else
-			desc[i] = t1-t0;
+			dst[i] = t1-t0;
 	}
-
-	return desc;
-}
-
-vector<float> IntegralVideo::getDesc_uv(const vector<Mat>* const iv, const Point3i& tlp, const Point3i& whl, bool normByArea) const
-{
-	vector<float> desc(_nbins*2);
-	int x = tlp.x*_nbins, y = tlp.y, t = tlp.z;
-	int w = whl.x*_nbins, h = whl.y, l = whl.z;
-	float area = (whl.x*h*l)/100.f;
-	float t0, t1;
-	for (int i = 0; i < _nbins; i++)
-	{
-		t1 = iv[0][t+l].at<float>(y+h, x+w+i) - iv[0][t+l].at<float>(y+h, x+i) - \
-			 iv[0][t+l].at<float>(y, x+w+i)  + iv[0][t+l].at<float>(y, x+i);
-		t0 = iv[0][t].at<float>(y+h, x+w+i) - iv[0][t].at<float>(y+h, x+i) - \
-			 iv[0][t].at<float>(y, x+w+i) + iv[0][t].at<float>(y, x+i);
-		
-		if(normByArea)
-			desc[i] = (t1-t0)/area;
-		else
-			desc[i] = t1-t0;
-
-		t1 = iv[1][t+l].at<float>(y+h, x+w+i) - iv[1][t+l].at<float>(y+h, x+i) - \
-			 iv[1][t+l].at<float>(y, x+w+i)  + iv[1][t+l].at<float>(y, x+i);
-		t0 = iv[1][t].at<float>(y+h, x+w+i) - iv[1][t].at<float>(y+h, x+i) - \
-			 iv[1][t].at<float>(y, x+w+i) + iv[1][t].at<float>(y, x+i);
-
-		if(normByArea)
-			desc[i+_nbins] = (t1-t0)/area;
-		else
-			desc[i+_nbins] = t1-t0;
-	}
-		return desc;
 }
 
 #ifdef normThreshold
