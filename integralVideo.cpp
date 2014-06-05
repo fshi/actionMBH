@@ -129,7 +129,7 @@ bool IntegralVideo::computeIntegVideo(const string& fName_, Point3f rt2ps, float
 	_ivBrt = 0;
 
 	cap>>im;
-	while(!(im.empty()) && _ivBps <= MAX_VIDEO_BUFFER && _ivBps < endFrame - stFrame - 1)
+	while(!(im.empty()) && _ivBps <= MAX_VIDEO_BUFFER && _ivBps < endFrame - stFrame )
 	{
 		//processing image with grey gradient
 		if (im.channels() >= 3) 

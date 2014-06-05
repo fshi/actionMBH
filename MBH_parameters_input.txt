@@ -5,7 +5,7 @@ Parameters for HOG3Ddescriptor:
 	Full orientation:  1
 	Cut vaule for normalization:  0.25
 	Round types:  0
-	Normalize subblock with number of pixels inside:  1
+	Normalize subblock with number of pixels inside:  0
 	Rate for resizing the input video to compute integral video:   0.5
 	Ratio for root video size to part video size (x, y, t):  0.5  0.5  1
 	Nnumber of parts per root window (x, y, t):  2  2  2
